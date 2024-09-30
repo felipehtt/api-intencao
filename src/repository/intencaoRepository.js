@@ -94,3 +94,30 @@ export async function deletarIntencao(id) {
     return linhasAfetadas;
     
 }
+
+//Consultando Por ID
+export async function consultarIntencaoPorId(id){
+
+    const comando = `
+    
+        select 
+            id_intencao    idIntencao, 
+            nome           nome,
+            telefone       telefone,
+            cep            cep,
+            data_festa     dataFesta,
+            tipo_festa     tipoFesta, 
+            tema_festa     temaFesta,
+            lembrete       lembrete
+        from tb_intencoes
+        where id_intencao = ?;
+
+    `;
+
+    let resposta = await con.query(comando, [id]);
+
+    let registros = resposta[0];
+
+    return registros;
+
+}

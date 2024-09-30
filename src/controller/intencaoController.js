@@ -5,6 +5,7 @@ import inserirIntencaoService from "../service/inserirIntencaoService.js";
 import consultarIntencaoService from "../service/consultarIntencaoService.js";
 import alterarIntencaoService from "../service/alterarIntencaoService.js";
 import deletarIntencaoService from "../service/deletarIntencaoService.js";
+import consultarIntencaoPorIdService from "../service/consultarIntencaoPorIdService.js";
 
 endpoints.post('/intencao', async (req, resp) => {
 
@@ -95,6 +96,31 @@ endpoints.delete('/intencao/:id', async (req, resp) => {
     } 
     catch(err){
         
+        resp.status(400).send({
+
+            erro: err.message
+
+        })
+
+    }
+
+})
+
+
+//Consultando Por Id
+endpoints.get('/intencao/:id', async (req, resp) => {
+
+    try {
+        
+        let id = req.params.id
+
+        let registros = await consultarIntencaoPorIdService(id)
+
+        resp.send(registros);
+
+    } 
+    catch(err){
+    
         resp.status(400).send({
 
             erro: err.message
