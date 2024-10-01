@@ -65,9 +65,9 @@ endpoints.put('/intencao/:id', async (req, resp) => {
 
         let id = req.params.id;
 
-        await alterarIntencaoService(intencao, id)
+        await alterarIntencaoService(intencao, id);
 
-        resp.status(204).send();
+        resp.send();
 
     } 
     catch(err){
