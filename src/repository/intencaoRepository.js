@@ -1,18 +1,19 @@
 import con from './connection.js';
 
+
 export async function inserirIntencao(intencao) {
 
     const comando = ` 
     
         insert into tb_intencoes (nome, telefone, cep, data_festa, tipo_festa, 
-        tema_festa, lembrete)
+        tema_festa, data_intencao)
         values (?, ?, ?, ?, ?, ?, ?)
     
     `;
 
     let resposta = await con.query(comando, [intencao.nome, intencao.telefone, 
     intencao.cep, intencao.dataFesta, intencao.tipoFesta, intencao.temaFesta,
-    intencao.lembrete]);
+    intencao.dataIntencao]);
 
     let info = resposta[0];
 
@@ -35,7 +36,7 @@ export async function consultarIntencao(){
             data_festa     dataFesta,
             tipo_festa     tipoFesta, 
             tema_festa     temaFesta,
-            lembrete       lembrete
+            data_intencao  dataIntencao
         from tb_intencoes;
 
     `;
@@ -60,14 +61,14 @@ export async function alterarIntencao(intencao, id){
                 data_festa = ?,
                 tipo_festa = ?,
                 tema_festa = ?,
-                lembrete = ?
+                data_intencao = ?
         where id_intencao = ?
 
     `;
 
     let resposta = await con.query(comando, [intencao.nome, intencao.telefone, 
     intencao.cep, intencao.dataFesta, intencao.tipoFesta, intencao.temaFesta,
-    intencao.lembrete, id]);
+    intencao.dataIntencao, id]);
 
     let info = resposta[0];
 
@@ -108,7 +109,7 @@ export async function consultarIntencaoPorId(id){
             data_festa     dataFesta,
             tipo_festa     tipoFesta, 
             tema_festa     temaFesta,
-            lembrete       lembrete
+            data_intencao  dataIntencao
         from tb_intencoes
         where id_intencao = ?;
 
