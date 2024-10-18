@@ -1,13 +1,17 @@
 import { Router } from "express";
 const endpoints = Router();
 
-import inserirIntencaoService from "../service/inserirIntencaoService.js";
-import consultarIntencaoService from "../service/consultarIntencaoService.js";
-import alterarIntencaoService from "../service/alterarIntencaoService.js";
-import deletarIntencaoService from "../service/deletarIntencaoService.js";
-import consultarIntencaoPorIdService from "../service/consultarIntencaoPorIdService.js";
+import * as db from '../repository/intencaoRepository.js'
 
-endpoints.post('/intencao', async (req, resp) => {
+import { autenticar } from "../utils/jwt.js";
+
+import inserirIntencaoService from "../service/intencoes/inserirIntencaoService.js";
+import consultarIntencaoService from "../service/intencoes/consultarIntencaoService.js";
+import alterarIntencaoService from "../service/intencoes/alterarIntencaoService.js";
+import deletarIntencaoService from "../service/intencoes/deletarIntencaoService.js";
+import consultarIntencaoPorIdService from "../service/intencoes/consultarIntencaoPorIdService.js";
+
+endpoints.post('/intencao', autenticar, async (req, resp) => {
 
     try {
         
@@ -35,11 +39,13 @@ endpoints.post('/intencao', async (req, resp) => {
 })
 
 
-endpoints.get('/intencao', async (req, resp) => {
+endpoints.get('/intencao', autenticar, async (req, resp) => {
 
     try {
         
-        let registros = await consultarIntencaoService();
+        let idAdm = req.user.idAdm;
+
+        let registros = await db.consultarIntencao(idAdm)
 
         resp.send(registros);
 
@@ -57,7 +63,7 @@ endpoints.get('/intencao', async (req, resp) => {
 })
 
 
-endpoints.put('/intencao/:id', async (req, resp) => {
+endpoints.put('/intencao/:id', autenticar, async (req, resp) => {
 
     try {
     
@@ -83,7 +89,7 @@ endpoints.put('/intencao/:id', async (req, resp) => {
 })
 
 
-endpoints.delete('/intencao/:id', async (req, resp) => {
+endpoints.delete('/intencao/:id', autenticar, async (req, resp) => {
 
     try {
     
@@ -108,7 +114,7 @@ endpoints.delete('/intencao/:id', async (req, resp) => {
 
 
 //Consultando Por Id
-endpoints.get('/intencao/:id', async (req, resp) => {
+endpoints.get('/intencao/:id', autenticar, async (req, resp) => {
 
     try {
         

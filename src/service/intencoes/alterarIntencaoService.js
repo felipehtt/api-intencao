@@ -1,4 +1,4 @@
-import { alterarIntencao } from "../repository/intencaoRepository.js";
+import { alterarIntencao } from "../../repository/intencaoRepository.js";
 
 export default async function alterarIntencaoService(intencao, id) {
     

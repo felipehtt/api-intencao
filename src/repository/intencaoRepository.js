@@ -5,13 +5,13 @@ export async function inserirIntencao(intencao) {
 
     const comando = ` 
     
-        insert into tb_intencoes (nome, telefone, cep, data_festa, tipo_festa, 
+        insert into tb_intencoes (id_adm, nome, telefone, cep, data_festa, tipo_festa, 
         tema_festa, data_intencao)
-        values (?, ?, ?, ?, ?, ?, ?)
+        values (?, ?, ?, ?, ?, ?, ?, ?)
     
     `;
 
-    let resposta = await con.query(comando, [intencao.nome, intencao.telefone, 
+    let resposta = await con.query(comando, [intencao.adm, intencao.nome, intencao.telefone, 
     intencao.cep, intencao.dataFesta, intencao.tipoFesta, intencao.temaFesta,
     intencao.dataIntencao]);
 
@@ -24,12 +24,13 @@ export async function inserirIntencao(intencao) {
 }
 
 
-export async function consultarIntencao(){
+export async function consultarIntencao(idAdm){
 
     const comando = `
     
         select 
-            id_intencao    idIntencao, 
+            id_intencao    idIntencao,
+            id_adm         adm, 
             nome           nome,
             telefone       telefone,
             cep            cep,
@@ -37,11 +38,12 @@ export async function consultarIntencao(){
             tipo_festa     tipoFesta, 
             tema_festa     temaFesta,
             data_intencao  dataIntencao
-        from tb_intencoes;
+        from tb_intencoes
+        where id_adm = ?
 
     `;
 
-    let resposta = await con.query(comando);
+    let resposta = await con.query(comando, [idAdm]);
 
     let registros = resposta[0];
 

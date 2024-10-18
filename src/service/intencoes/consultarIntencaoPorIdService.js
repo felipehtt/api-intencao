@@ -1,4 +1,4 @@
-import { consultarIntencaoPorId } from "../repository/intencaoRepository.js";
+import { consultarIntencaoPorId } from "../../repository/intencaoRepository.js";
 
 export default async function consultarIntencaoPorIdService(id){
 

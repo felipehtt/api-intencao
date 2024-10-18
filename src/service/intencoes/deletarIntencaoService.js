@@ -1,4 +1,4 @@
-import { deletarIntencao } from "../repository/intencaoRepository.js";
+import { deletarIntencao } from "../../repository/intencaoRepository.js";
 
 export default async function deletarIntencaoService(id){
 
